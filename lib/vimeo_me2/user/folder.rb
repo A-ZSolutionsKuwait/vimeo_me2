@@ -21,6 +21,13 @@ module VimeoMe2
         post("/projects", body: body, code: 201 )
       end
 
+      # Update folder
+      # @param [String] folder_id The ID of the folder.
+      # @param [String] name The name of the folder.
+      def update_folder(folder_id, name)
+        body = { name: name }
+        patch("/projects/#{folder_id}", body: body, code: 200)
+      end
 
       # Delete one folder by it's ID
       # @param [String] folder_id The Id of the folder.
