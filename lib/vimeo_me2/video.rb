@@ -29,7 +29,7 @@ module VimeoMe2
     def name
       @video['name']
     end
-    
+
     def description= description
       @video['description'] = description
     end
@@ -37,7 +37,7 @@ module VimeoMe2
     def description
       @video['description']
     end
-    
+
     def privacy
       @video['privacy'] ||= {}
     end
@@ -61,6 +61,24 @@ module VimeoMe2
     def destroy
       @video = delete(nil, code: 204)
       @base_uri, @video_id = nil
+    end
+
+    def replace_file(file_name, link)
+      body = {
+        upload: { approach: "pull", link: link },
+        file_name: file_name
+      }
+
+      post "/versions", body: body, code: 201
+    end
+
+    def add_picture(active, time)
+      body = {
+        active: active,
+        time: time
+      }
+
+      post "/pictures", body: body, code: 201
     end
 
     private
